@@ -1,6 +1,7 @@
 # Django Live Chat (WebSocket)
 
 Real-time chat web app built with Django, Django Channels, and WebSocket.
+Pair test update line for collaboration.
 
 ## Features
 
