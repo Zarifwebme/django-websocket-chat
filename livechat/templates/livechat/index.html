@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Chat</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #1f2937;
+        }
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+        }
+        h1 {
+            margin-top: 0;
+        }
+        form {
+            display: grid;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+        input, button {
+            padding: 14px;
+            border-radius: 12px;
+            border: 1px solid #d1d5db;
+            font-size: 16px;
+        }
+        button {
+            background: #111827;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            opacity: 0.95;
+        }
+        .room-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+        }
+        .room-item {
+            display: block;
+            text-decoration: none;
+            background: #f9fafb;
+            padding: 14px;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            color: #111827;
+            font-weight: 600;
+        }
+        .muted {
+            color: #6b7280;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Live Chat</h1>
+            <p class="muted">Username va room nomini kiriting.</p>
+
+            <form method="post">
+                {% csrf_token %}
+                <input type="text" name="username" placeholder="Username kiriting" required>
+                <input type="text" name="room_name" placeholder="Room nomi: general" required>
+                <button type="submit">Chatga kirish</button>
+            </form>
+
+            <h3>Mavjud roomlar</h3>
+
+            {% if rooms %}
+                <div class="room-list">
+                    {% for room in rooms %}
+                        <a class="room-item" href="{% url 'room' room.name %}">
+                            # {{ room.name }}
+                        </a>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="muted">Hozircha roomlar yo‘q.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
